@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Calculator</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    overflow:hidden;
+    font-family:'Segoe UI',sans-serif;
+    background:linear-gradient(135deg,#fe2509a8,#121212);
+}
+
+.background{
+    position:fixed;
+    width:100%;
+    height:100%;
+    z-index:1;
+    overflow:hidden;
+}
+
+.number{
+    position:absolute;
+    font-weight:bold;
+    opacity:0.7;
+}
+
+.up{
+    animation:moveUp linear forwards;
+}
+
+@keyframes moveUp{
+    from{ transform:translateY(110vh); }
+    to{ transform:translateY(-30vh); }
+}
+
+.jump{
+    animation:jumpFall ease-in-out forwards;
+}
+
+@keyframes jumpFall{
+    0%{ transform:translateY(0); }
+    40%{ transform:translateY(-150px); }
+    100%{ transform:translateY(400px); opacity:0; }
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.calculator{
+    width:280px;
+    padding:20px;
+    border-radius:20px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 30px rgba(0,0,0,0.3);
+}
+
+.title{
+    text-align:center;
+    color:white;
+    font-size:22px;
+    margin-bottom:10px;
+}
+
+#display{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:10px;
+    font-size:24px;
+    text-align:right;
+    padding-right:10px;
+    margin-bottom:15px;
+}
+
+.buttons{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+}
+
+button{
+    height:50px;
+    border:none;
+    border-radius:12px;
+    font-size:18px;
+    cursor:pointer;
+    background:rgba(255,255,255,0.85);
+    transition:0.2s;
+}
+
+button:hover{ transform:scale(1.05); }
+
+.operator{ background:#ffd166; }
+.clear{ background:#ef476f;color:white; }
+.back{ background:#8393f6;color:white; }
+.equal{ background:#8393f6;color:white; }
+</style>
+</head>
+
+<body>
+
+<div class="background" id="background"></div>
+
+<div class="container">
+<div class="calculator">
+<div class="title">CALCULATOR</div>
+
+<input type="text" id="display" disabled>
+
+<div class="buttons">
+<button class="clear" onclick="clearDisplay()">AC</button>
+<button class="operator" onclick="appendValue('%')">%</button>
+<button class="operator" onclick="appendValue('/')">÷</button>
+<button class="back" onclick="deleteOne()">⌫</button>
+<button class="operator" onclick="appendValue('*')">×</button>
+
+<button onclick="appendValue('7')">7</button>
+<button onclick="appendValue('8')">8</button>
+<button onclick="appendValue('9')">9</button>
+<button class="operator" onclick="appendValue('-')">−</button>
+
+<button onclick="appendValue('4')">4</button>
+<button onclick="appendValue('5')">5</button>
+<button onclick="appendValue('6')">6</button>
+<button class="operator" onclick="appendValue('+')">+</button>
+
+<button onclick="appendValue('1')">1</button>
+<button onclick="appendValue('2')">2</button>
+<button onclick="appendValue('3')">3</button>
+<button class="equal" onclick="calculate()">=</button>
+<button onclick="appendValue('0')">0</button>
+<button onclick="appendValue('.')">.</button>
+
+</div>
+</div>
+</div>
+
+<script>
+let display=document.getElementById("display");
+
+function appendValue(v){ display.value+=v; }
+function clearDisplay(){ display.value=""; }
+function deleteOne(){ display.value=display.value.slice(0,-1); }
+function calculate(){ display.value=eval(display.value); }
+
+const bg=document.getElementById("background");
+const symbols=["0","1","2","3","4","5","6","7","8","9","+","−","×","÷"];
+const colors=["#ffbe0b","#fb5607","#ff006e","#8338ec","#3a86ff"];
+
+let i=0;
+
+function createUp(){
+    const s=document.createElement("span");
+    s.className="number up";
+    s.innerText=symbols[i%symbols.length];
+    s.style.color=colors[i%colors.length];
+    s.style.fontSize="90px";
+    s.style.left=Math.random()*90+"vw";
+    s.style.animationDuration="6s";
+    bg.appendChild(s);
+    i++;
+    setTimeout(()=>s.remove(),6000);
+}
+
+function createJump(){
+    const s=document.createElement("span");
+    s.className="number jump";
+    s.innerText=symbols[Math.floor(Math.random()*symbols.length)];
+    s.style.color=colors[Math.floor(Math.random()*colors.length)];
+    s.style.fontSize="65px";
+    s.style.left=Math.random()*90+"vw";
+    s.style.top="65vh";
+    bg.appendChild(s);
+    setTimeout(()=>s.remove(),3000);
+}
+
+setInterval(createUp,500);   
+setInterval(createJump,1500);  
+</script>
+
+</body>
+</html>
