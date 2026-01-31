@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>IMAGE GALLERY</title>
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#faf6f6;
+    padding:20px;
+}
+
+h1{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.filters{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+.filters button{
+    padding:10px 18px;
+    margin:5px;
+    border:none;
+    border-radius:25px;
+    background:#667eea;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.filters button:hover{
+    background:#764ba2;
+}
+
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:15px;
+}
+
+.image-box{
+    position:relative;
+    overflow:hidden;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+.image-box img{
+    width:100%;
+    height:200px;
+    object-fit:cover;
+    transition:0.4s;
+}
+
+.image-box:hover img{
+    transform:scale(1.1);
+    filter:brightness(70%);
+}
+
+.image-box::after{
+    content:"View";
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    color:white;
+    font-size:20px;
+    opacity:0;
+    transition:0.3s;
+}
+
+.image-box:hover::after{
+    opacity:1;
+}
+
+.lightbox{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:10;
+}
+
+.lightbox img{
+    max-width:85%;
+    max-height:85%;
+    border-radius:10px;
+}
+
+.close,.prev,.next{
+    position:absolute;
+    color:white;
+    font-size:30px;
+    cursor:pointer;
+    padding:15px;
+}
+
+.close{ top:10px; right:20px; }
+.prev{ left:20px; }
+.next{ right:20px; }
+
+@media(max-width:600px){
+    .image-box img{ height:150px; }
+}
+</style>
+</head>
+
+<body>
+
+<h1>IMAGE GALLERY</h1>
+
+<div class="filters">
+    <button onclick="filterImages('all')">All</button>
+    <button onclick="filterImages('nature')">Nature</button>
+    <button onclick="filterImages('animals')">Animals</button>
+    <button onclick="filterImages('birds')">Birds</button>
+    <button onclick="filterImages('games')">Games</button>
+    <button onclick="filterImages('mountains')">Mountains</button>
+</div>
+
+<div class="gallery">
+
+<div class="image-box nature"><img src="https://tse4.mm.bing.net/th/id/OIP.kKSNTRAx0Zm792CEpN6v4AHaEI?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse1.mm.bing.net/th/id/OIP.YWqPn8iX5L40UOg8w0kWOwHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse2.mm.bing.net/th/id/OIP.P-qKLoBGVQ-06fC57PRiJQHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse4.mm.bing.net/th/id/OIP.G_UKx_10FqDv1IRMH97FZAHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse4.mm.bing.net/th/id/OIP.Pmg3DQkWrUKGnrd7yjkKJQHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse1.mm.bing.net/th/id/OIP.BrGyxnvbsMMq1iM0c-W0HAHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse1.mm.bing.net/th/id/OIP.8OQBbJZsD7SJYhT0AJpCHwHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse2.mm.bing.net/th/id/OIP.FEcwxmCcbkmaES35DSdwfQHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse2.mm.bing.net/th/id/OIP.ULsuPVMAkIOhxnQ7g-tyJAHaEO?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse4.mm.bing.net/th/id/OIP.kbpw4uEkJc9k5IgpZ3yM8gHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse3.mm.bing.net/th/id/OIP.ptHoilnidjM8FjUTHpX-7gHaEn?pid=Api&P=0&h=180"></div>
+<div class="image-box nature"><img src="https://tse2.mm.bing.net/th/id/OIP.dRS5zz487DIt7WSUigT20wHaEJ?pid=Api&P=0&h=180"></div>
+
+
+<div class="image-box animals"><img src="https://tse3.mm.bing.net/th/id/OIP.neja3Geo7p04g32pAc4XAgHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse1.mm.bing.net/th/id/OIP.TUz9yOXGEz0dkWBuDNWxwgHaFw?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse1.mm.bing.net/th/id/OIP.XQ4eOkm1iLFvM4ReknS1vwHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse4.mm.bing.net/th/id/OIP.EJ-pte_8-qqZUKGLPmYQ6AHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse1.mm.bing.net/th/id/OIP.1o9Zoien2NP6Nsc1zWcMZQHaFj?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse4.mm.bing.net/th/id/OIP.J8VQI7gRYutaJmPzBongqwHaFj?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse4.mm.bing.net/th/id/OIP.rzuG6aaYj4EV_FB9PEm3RgHaFj?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse3.mm.bing.net/th/id/OIP.wEwNlfAyoww24TIyQEqT3wHaFj?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse4.mm.bing.net/th/id/OIP.wS-QYYfYYKzD3d-NFPx8sgHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box animals"><img src="https://tse2.mm.bing.net/th/id/OIP.s2O0lUBC6HMTIWoxZcGuNAHaEo?pid=Api&P=0&h=180"></div>
+
+
+<div class="image-box birds"><img src="https://tse3.mm.bing.net/th/id/OIP.3hTkhdPZ8PRL3R6saGGNAgHaE7?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse4.mm.bing.net/th/id/OIP.eQwpFB9UIaewii7t5-4TwAHaE7?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse4.mm.bing.net/th/id/OIP.RfOsdd8Gcr-eZaghyg7zbQHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse4.mm.bing.net/th/id/OIP.kKlxVy8ZQdE4ZjrPvpZj2AHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse2.mm.bing.net/th/id/OIP.kf1wU1Igc0yGw69fxqXxRAHaFj?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse3.mm.bing.net/th/id/OIP.-N2YO3sx5osj9BAuiDZ4fgHaE5?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse4.mm.bing.net/th/id/OIP.9hayrM0i5MZ1G66yGUlVxwHaF7?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse3.mm.bing.net/th/id/OIP.GrnT4nwuPI1KXEyHxkK2QQHaE6?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse2.mm.bing.net/th/id/OIP.DlhWTdFQKgnlrwSPH3HmoQHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box birds"><img src="https://tse2.mm.bing.net/th/id/OIP.HBsTDALhN3EqF0uzTlmKTAHaE8?pid=Api&P=0&h=180"></div>
+
+
+<div class="image-box games"><img src="https://tse4.mm.bing.net/th/id/OIP.lnR36FCRpenyEZmj0d4SRQHaE7?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse3.mm.bing.net/th/id/OIP.23ZkW80bl-g4NoXGKthh-gHaEH?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse3.mm.bing.net/th/id/OIP.h2vwgGDvqkwWwFKX1LGX2QHaFc?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse2.mm.bing.net/th/id/OIP.JUYnmh_MdOrFvz7d4HGhigHaEy?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse3.mm.bing.net/th/id/OIP.FLn4-D0LvS3LECJjl0KtYgAAAA?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse2.mm.bing.net/th/id/OIP.vSh3HXsWfpIOi6uHVgoTdgHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse4.mm.bing.net/th/id/OIP.eqMn1mn0jcisnbRlaWhJzwHaE4?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse2.mm.bing.net/th/id/OIP.xKcIfaG5Sl1_XQliFENTCAHaEY?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse3.mm.bing.net/th/id/OIP.tVzKg0IVoKaglO9Uh1et5QHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box games"><img src="https://tse1.mm.bing.net/th/id/OIP.Ipq9m-7T4rk6FqgKhwX8KQHaEK?pid=Api&P=0&h=180"></div>
+
+
+<div class="image-box mountains"><img src="https://tse4.mm.bing.net/th/id/OIP.fH51tz_rbv0IqNm21XnJKQHaE8?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse2.mm.bing.net/th/id/OIP.rUYYAuK9JfV5JxcpHdj6DAHaE7?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse4.mm.bing.net/th/id/OIP.NZ_Vf2qahNUu5HJ_MOeAFQHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse3.mm.bing.net/th/id/OIP.YbW-EBt_kYn_xiNHMwMntgHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse4.mm.bing.net/th/id/OIP.0684JRvBT47hr6OGbXN33QEgDY?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse3.mm.bing.net/th/id/OIP.JbIRa0R9argg0FhYcs9eeQHaEK?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse3.mm.bing.net/th/id/OIP.UutHDSgTG5XA4Nv8XaSWVwHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse1.mm.bing.net/th/id/OIP.gwUjoYO8aGuy0zLAeMoJpwHaFb?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse2.mm.bing.net/th/id/OIP.H--OhGk8zOM4dXKe-eyBQAHaEo?pid=Api&P=0&h=180"></div>
+<div class="image-box mountains"><img src="https://tse3.mm.bing.net/th/id/OIP.I9N1EG619RS-SDUeV_-5sAHaEo?pid=Api&P=0&h=180"></div>
+</div>
+
+
+<div class="lightbox" id="lightbox">
+<span class="close" onclick="closeLightbox()">×</span>
+<span class="prev" onclick="changeImage(-1)">❮</span>
+<img id="lightbox-img">
+<span class="next" onclick="changeImage(1)">❯</span>
+</div>
+
+<script>
+let images=document.querySelectorAll(".gallery img");
+let lightbox=document.getElementById("lightbox");
+let lightboxImg=document.getElementById("lightbox-img");
+let currentIndex=0;
+
+
+images.forEach((img,index)=>{
+    img.onclick=()=>{
+        lightbox.style.display="flex";
+        lightboxImg.src=img.src;
+        currentIndex=index;
+    }
+});
+
+
+function closeLightbox(){
+    lightbox.style.display="none";
+}
+
+
+function changeImage(step){
+    currentIndex+=step;
+    if(currentIndex<0) currentIndex=images.length-1;
+    if(currentIndex>=images.length) currentIndex=0;
+    lightboxImg.src=images[currentIndex].src;
+}
+
+
+function filterImages(cat){
+    document.querySelectorAll(".image-box").forEach(box=>{
+        box.style.display=(cat==="all"||box.classList.contains(cat))?"block":"none";
+    });
+}
+</script>
+
+</body>
+</html>
